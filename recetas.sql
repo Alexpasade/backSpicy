@@ -1,0 +1,1 @@
+SELECT * FROM Recetas.recetas;
