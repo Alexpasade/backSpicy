@@ -7,6 +7,18 @@ let mysql = require('mysql')
 
 let pool = null
 
+// exports.connect = (done) => {
+//     pool = mysql.createPool({
+//         host: 'localhost',
+//         user: 'root',
+//         password: 'root',
+//         port: '8889',
+//         database: 'recetas'
+//     })
+
+//     done();
+// }
+
 exports.connect = (done) => {
     pool = mysql.createPool({
         host: 'localhost',
@@ -20,6 +32,14 @@ exports.connect = (done) => {
 }
 
 
+
 exports.get = () => {
     return pool;
 }
+
+//mysql://b06a4de8e0c3a1:c34eaf3d@eu-cdbr-west-02.cleardb.net/heroku_999732582d6c0a3
+
+// b06a4de8e0c3a1: user
+// c34eaf3d : pass
+// eu-cdbr-west-02.cleardb.net :host
+// heroku_999732582d6c0a3

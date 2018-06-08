@@ -1,4 +1,5 @@
 let db = require('../db')
+let fs = require('fs')
 
 exports.index = (done) => {
     let consulta = 'SELECT * FROM usuarios'
@@ -14,4 +15,7 @@ exports.create = ({nombre, ciudad, edad, email, password, imagen}, done) =>{
         if (err) return done(err, null)
         done(null, result)
     })
+}
+exports.index = ({password},done) => {
+    let consulta = 'SELECT * FROM usuarios (password)'
 }
