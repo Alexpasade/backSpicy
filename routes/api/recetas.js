@@ -10,4 +10,15 @@ router.get('/', (req,res) => {
     })
 })
 
+router.post('/insertarreceta', (req, res) => {
+    modelRecetas.create({
+
+        nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
+        receta: req.body.receta
+    }, (err, result) =>{
+        res.json({success: 'receta subida'})
+    })
+})
+
 module.exports = router
