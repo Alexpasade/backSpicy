@@ -9,4 +9,39 @@ router.get('/', (req, res) =>{
     })
 })
 
+router.post('/getrestaurante', (req, res) => {
+    modelRestaurantes.getRestaurant(req.body.id,
+    (err, result) =>{
+        if(result.lenght === 0){
+            res.json('no hay restaurnate')
+        }else{
+            res.json(result[0])
+        }
+    })
+})
+
+router.post('/opinion', (req, res) => {
+    modelRestaurantes.create({
+
+        opinion: req.body.opinion,
+        user_id: req.body.user_id,
+        rest_id: req.body.rest_id
+
+    }, (err, result) => {
+        res.json({success: 'opinion subida'})
+    })
+})
+
+router.post('/opinionrest', (req, res) => {
+    modelRestaurantes.getOpiniones(req.body.rest_id,
+    (err, result) => {
+        if(result.lenght === 0){
+            res.json('no hay opiniones')
+        }else{
+            res.json(result)
+        }
+    })
+})
+
+
 module.exports = router

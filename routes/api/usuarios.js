@@ -45,7 +45,6 @@ router.post('/email', (req, res) => {
 router.post('/usuario', (req, res) => {
     modelUsuarios.getUsuario(req.body.id,
     (err, result) => {
-        console.log(result.length) 
         if(result.length === 0){
             res.json('Este usuario no existe')
         }else{

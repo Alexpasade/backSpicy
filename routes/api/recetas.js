@@ -15,9 +15,22 @@ router.post('/insertarreceta', (req, res) => {
 
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
-        receta: req.body.receta
+        receta: req.body.receta,
+        ingredientes: req.body.ingredientes
+
     }, (err, result) =>{
         res.json({success: 'receta subida'})
+    })
+})
+
+router.post('/getreceta', (req, res) => {
+    modelRecetas.getReceta(req.body.id,
+    (err, result) => {
+        if(result.length === 0){
+            res.json('no hay receta')
+        }else{
+            res.json(result[0])
+        }
     })
 })
 
