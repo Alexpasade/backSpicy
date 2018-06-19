@@ -31,3 +31,28 @@ exports.getOpiniones = (rest_id, done) =>{
         done(null, result)
     })
 }
+
+exports.indextienda = (done) => {
+    let consulta = 'SELECT * FROM tiendas'
+    db.get().query(consulta, (err, rows) => {
+        if (err) return done(err, null)
+        done(null, rows)
+    })
+}
+
+exports.getTienda = (id, done) =>{
+    let consulta = 'SELECT * FROM tiendas WHERE id=?'
+    db.get().query(consulta, [id], (err, result) =>{
+        if (err) return done(err, null)
+        done(null, result)
+    })
+}
+
+exports.favoriteRestaurants = ({rest_id}, done) => {
+    let consulta = 'INSERT INTO restaurantes_favoritos(rest_id) VALUES (?)'
+    db.get().query(consulta, [rest_id], (err, result) =>{
+        if (err) return done(err, null)
+        done(null, result)
+    })
+
+}

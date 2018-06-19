@@ -43,5 +43,33 @@ router.post('/opinionrest', (req, res) => {
     })
 })
 
+router.get('/tiendas', (req, res) =>{
+    modelRestaurantes.indextienda((err, rows) => {
+        if (err) return console.log(err.message)
+        res.json(rows)
+    })
+})
+
+router.post('/gettienda', (req, res) => {
+    modelRestaurantes.getTienda(req.body.id,
+    (err, result) =>{
+        if(result.lenght === 0){
+            res.json('no hay tienda')
+        }else{
+            res.json(result[0])
+        }
+    })
+})
+
+router.post('/favoritos', (req, res) => {
+    console.log(req.body)
+    modelRestaurantes.favoriteRestaurants({
+        rest_id: req.body
+
+    },(err, result) => {
+        res.json({success: 'Restaurante añadido'})
+    })
+})
+
 
 module.exports = router
