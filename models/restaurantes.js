@@ -56,3 +56,12 @@ exports.favoriteRestaurants = ({rest_id}, done) => {
     })
 
 }
+
+
+exports.getFavoriteRestaurants = (rest_id, done) => {
+    let consulta = 'SELECT * FROM restaurantes_favoritos rf, restaurantes r WHERE rf.rest_id = r.id AND rf.user_id=?'
+    db.get().query(consulta, [rest_id], (err, result) => {
+        if (err) return done(err, null)
+        done(null, result)
+    })
+}
