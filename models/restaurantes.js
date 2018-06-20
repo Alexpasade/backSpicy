@@ -48,9 +48,9 @@ exports.getTienda = (id, done) =>{
     })
 }
 
-exports.favoriteRestaurants = ({rest_id}, done) => {
-    let consulta = 'INSERT INTO restaurantes_favoritos(rest_id) VALUES (?)'
-    db.get().query(consulta, [rest_id], (err, result) =>{
+exports.favoriteRestaurants = ({user_id, rest_id}, done) => {
+    let consulta = 'INSERT INTO restaurantes_favoritos(user_id, rest_id) VALUES (?,?)'
+    db.get().query(consulta, [user_id,rest_id], (err, result) =>{
         if (err) return done(err, null)
         done(null, result)
     })
@@ -58,10 +58,18 @@ exports.favoriteRestaurants = ({rest_id}, done) => {
 }
 
 
-exports.getFavoriteRestaurants = (rest_id, done) => {
+exports.getFavoriteRestaurants = (user_id, done) => {
     let consulta = 'SELECT * FROM restaurantes_favoritos rf, restaurantes r WHERE rf.rest_id = r.id AND rf.user_id=?'
-    db.get().query(consulta, [rest_id], (err, result) => {
+    db.get().query(consulta, [user_id], (err, result) => {
         if (err) return done(err, null)
+        done(null, result)
+    })
+}
+
+exports.getFavoriteRestaurantsById = (user_id, done) => {
+    let consulta = 'SELECT * FROM restaurantes_favoritos WHERE user_id=?'
+    db.get().query(consulta, [user_id],(err, result) =>{
+        if (err) return done(err,null)
         done(null, result)
     })
 }

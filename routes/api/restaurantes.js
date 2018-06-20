@@ -64,10 +64,36 @@ router.post('/gettienda', (req, res) => {
 router.post('/favoritos', (req, res) => {
     console.log(req.body)
     modelRestaurantes.favoriteRestaurants({
-        rest_id: req.body
+
+        user_id: req.body.user_id,
+        rest_id: req.body.rest_id
 
     },(err, result) => {
-        res.json({success: 'Restaurante añadido'})
+        console.log(err)
+        res.json(1)
+    })
+})
+
+router.post('/restaurantesfavoritos', (req,res) => {
+    modelRestaurantes.getFavoriteRestaurants(req.body.user_id,
+    (err, result) =>{
+        if(result.lenght === 0){
+            res.json('no hay restaurantes favoritos')
+        }else{
+            res.json(result)
+        }
+    })
+})
+
+router.post('/restaurantesfavoritosbyid', (req,res) => {
+    console.log(req.body.user_id[0].id)
+    modelRestaurantes.getFavoriteRestaurantsById(req.body.user_id,
+    (err, result) =>{
+        if(result.lenght === 0){
+            res.json('no tienes restaurantes favoritos')
+        }else{
+            res.json(result)
+        }
     })
 })
 
