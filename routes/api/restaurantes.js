@@ -13,7 +13,7 @@ router.post('/getrestaurante', (req, res) => {
     modelRestaurantes.getRestaurant(req.body.id,
     (err, result) =>{
         if(result.lenght === 0){
-            res.json('no hay restaurnate')
+            res.json({error:'no hay restaurnate'})
         }else{
             res.json(result[0])
         }
@@ -36,7 +36,7 @@ router.post('/opinionrest', (req, res) => {
     modelRestaurantes.getOpiniones(req.body.rest_id,
     (err, result) => {
         if(result.lenght === 0){
-            res.json('no hay opiniones')
+            res.json({error:'no hay opiniones'})
         }else{
             res.json(result)
         }
@@ -54,7 +54,7 @@ router.post('/gettienda', (req, res) => {
     modelRestaurantes.getTienda(req.body.id,
     (err, result) =>{
         if(result.lenght === 0){
-            res.json('no hay tienda')
+            res.json({error:'no hay tienda'})
         }else{
             res.json(result[0])
         }
@@ -69,7 +69,6 @@ router.post('/favoritos', (req, res) => {
         rest_id: req.body.rest_id
 
     },(err, result) => {
-        console.log(err)
         res.json(1)
     })
 })
@@ -78,7 +77,7 @@ router.post('/restaurantesfavoritos', (req,res) => {
     modelRestaurantes.getFavoriteRestaurants(req.body.user_id,
     (err, result) =>{
         if(result.lenght === 0){
-            res.json('no hay restaurantes favoritos')
+            res.json({error: 'no hay restaurantes favoritos'})
         }else{
             res.json(result)
         }
@@ -86,16 +85,18 @@ router.post('/restaurantesfavoritos', (req,res) => {
 })
 
 router.post('/restaurantesfavoritosbyid', (req,res) => {
-    console.log(req.body.user_id[0].id)
-    modelRestaurantes.getFavoriteRestaurantsById(req.body.user_id,
+    modelRestaurantes.getFavoriteRestaurantsById(req.body.user_id[0].id,
     (err, result) =>{
-        if(result.lenght === 0){
-            res.json('no tienes restaurantes favoritos')
+        if(result.length === 0){
+            res.json({ error: 'no tienes restaurantes favoritos'})
         }else{
-            res.json(result)
+            let arr = []
+            for (let i = 0; i < result.length; i++) {
+                arr.push(parseInt(result[i].rest_id))               
+            }
+            res.json(arr)
         }
     })
 })
-
 
 module.exports = router
