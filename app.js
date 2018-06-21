@@ -4,6 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var {Wit} = require('node-wit');
+let fs = require('fs')
+let Promise = require('bluebird')
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -43,5 +48,25 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+const client = new Wit({accessToken:'Q6PBIFIPWDANYUIET6Y2MDXTRYCLUUQI'});
+
+
+
+app.post('/api/bot/receive', (req, res) => {
+    client.message(req.body.mensaje, {})
+    .then((data) => {
+        if(data.entities.intent && data.entities.intent.length > 0){
+           fs.readFile(`./phrases/${data.entities.intent[0].value}`,(err, data) => {
+            let frases = data.toString().split('\n')
+            res.json(frases[Math.round(Math.random()*frases.length)])
+           })
+        }else{
+            res.json('No te entiendo.....')
+        }
+    })
+})
+
 
 module.exports = app;

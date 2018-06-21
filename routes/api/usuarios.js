@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router()
 let modelUsuarios = require('../../models/usuarios')
+var sha256 = require('js-sha256')
 
 router.post('/crearusuario', (req, res) => {
     modelUsuarios.create({
@@ -8,7 +9,7 @@ router.post('/crearusuario', (req, res) => {
         ciudad: req.body.ciudad,
         edad: req.body.edad,
         email: req.body.email,
-        password: req.body.password,
+        password: sha256(req.body.password),
         imagen: req.body.imagen
 
     }, (err, result) => {
@@ -22,7 +23,7 @@ router.post('/login', (req, res) => {
         if(result.length === 0){
             res.json('falloMail')
         }else{
-            if (result[0].password !== req.body.password) {
+            if (result[0].password !== sha256(req.body.password)) {
                 res.json('falloPassword')
             }else{
                 res.json(result)
