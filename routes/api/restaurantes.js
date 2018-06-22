@@ -62,7 +62,6 @@ router.post('/gettienda', (req, res) => {
 })
 
 router.post('/favoritos', (req, res) => {
-    console.log(req.body)
     modelRestaurantes.favoriteRestaurants({
 
         user_id: req.body.user_id,
@@ -96,6 +95,17 @@ router.post('/restaurantesfavoritosbyid', (req,res) => {
             }
             res.json(arr)
         }
+    })
+})
+
+router.post('/deleterestuarantefavorito', (req,res) => {
+    modelRestaurantes.destroyFavoriteRestaurantById({
+
+        user_id: req.body.user_id,
+        rest_id: req.body.rest_id
+
+    },(err, result) => {
+       res.json({success: 'restaurante eliminado'})
     })
 })
 

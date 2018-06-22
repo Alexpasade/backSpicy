@@ -6,11 +6,12 @@ let Promise = require('bluebird')
 let http = require('http')
 var app = express()
 
-const client = new Wit({accessToken:'Q6PBIFIPWDANYUIET6Y2MDXTRYCLUUQI'});
+const client = new Wit({accessToken:'VQM56I44GDU533DLUU3YOGBAKFAJ7M3N'});
 
 router.post('/', (req, res) => {
     client.message(req.body.mensaje, {})
     .then((data) => {
+        console.log(data.entities.intent)
         if(data.entities.intent && data.entities.intent.length > 0){
             let ruta = `phrases/${data.entities.intent[0].value}`
            fs.readFile(ruta ,(err, datosFich) => {

@@ -73,3 +73,12 @@ exports.getFavoriteRestaurantsById = (user_id, done) => {
         done(null, result)
     })
 }
+
+exports.destroyFavoriteRestaurantById = ({user_id, rest_id}, done) =>{
+    let elimina = 'DELETE FROM restaurantes_favoritos WHERE user_id=? AND rest_id=?'
+    db.get().query(elimina, [user_id, rest_id],(err, result) => {
+        if (err) return done(err, null)
+        done(null,result)
+    })
+
+}
