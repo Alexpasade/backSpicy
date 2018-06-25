@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 let modelRecetas = require('../../models/recetas')
+let fs = require('fs')
+let multipart = require('connect-multiparty')
+let multipartMiddleware = multipart()
 
 //Ruta: /api/recetas/index
 router.get('/', (req,res) => {
@@ -10,13 +13,18 @@ router.get('/', (req,res) => {
     })
 })
 
-router.post('/insertarreceta', (req, res) => {
-    modelRecetas.create({
+router.post('/insertarreceta', multipartMiddleware, (req, res) => {
+    let random = Math.random().toString(36).substring(2, 7)
+    let content = fs.readFileSync(req.files.imagen.path)
+    fs.writeFileSync(`public/images/${random}.jpg`, content)
 
+    modelRecetas.create({
+        
         nombre: req.body.nombre,
         descripcion: req.body.descripcion,
         receta: req.body.receta,
-        ingredientes: req.body.ingredientes
+        ingredientes: req.body.ingredientes,
+        imagen: `http://localhost:3000/images/${random}.jpg`
 
     }, (err, result) =>{
         res.json({success: 'receta subida'})

@@ -8,9 +8,9 @@ exports.index = (done) => {
     })
 }
 
-exports.create = ({nombre, descripcion ,receta}, done) => {
-    let consulta = 'INSERT INTO recetas (nombre, descripcion, receta, ingredientes) VALUES (?, ?, ?,?)'
-    db.get().query(consulta, [nombre, descripcion, receta, ingredientes], (err, result) => {
+exports.create = ({nombre, descripcion ,receta,ingredientes,imagen}, done) => {
+    let consulta = 'INSERT INTO recetas (nombre, descripcion, receta, ingredientes,imagen) VALUES (?, ?, ?, ?, ?)'
+    db.get().query(consulta, [nombre, descripcion, receta, ingredientes, imagen], (err, result) => {
         if (err) return done(err, null)
         done(null, result)
     })

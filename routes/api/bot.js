@@ -6,7 +6,7 @@ let Promise = require('bluebird')
 let http = require('http')
 var app = express()
 
-const client = new Wit({accessToken:'VQM56I44GDU533DLUU3YOGBAKFAJ7M3N'});
+const client = new Wit({accessToken:'DEW2LP3WW4X3HQQJCA5KJB4INERF5SSV'});
 
 router.post('/', (req, res) => {
     client.message(req.body.mensaje, {})
