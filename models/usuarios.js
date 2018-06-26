@@ -38,3 +38,11 @@ exports.getUsuario = (id, done) => {
         done(null, result)
     })
 }
+
+exports.changePassword = ({password, email}, done) => {
+    let update = 'UPDATE usuarios SET password=? WHERE email=?'
+    db.get().query(update,[password, email], (err, result) => {
+        if(err) return done(err, null)
+        done(null, result)
+    })
+}

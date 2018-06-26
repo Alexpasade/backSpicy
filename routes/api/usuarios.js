@@ -61,4 +61,14 @@ router.post('/usuario', (req, res) => {
     })
 })
 
+router.post('/changepassword', (req, res) => {
+    modelUsuarios.changePassword({
+        email: req.body.email,
+        password: sha256(req.body.password),
+    }, (err, result) => {
+        res.json({success: 'password cambiado'})
+    })
+})
+
+
 module.exports = router
