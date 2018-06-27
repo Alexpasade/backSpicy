@@ -17,7 +17,7 @@ router.post('/crearusuario', (req, res) => {
         edad: req.body.edad,
         email: req.body.email,
         password: sha256(req.body.password),
-        imagen: `https://backspicy.herokuapp.com/images/${random}.jpg`
+        imagen: `http://localhost:3000/images/${random}.jpg`
 
     }, (err, result) => {
             res.json({success: 'registro completado'});

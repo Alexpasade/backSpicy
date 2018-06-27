@@ -9,11 +9,11 @@ let pool = null
 
 exports.connect = (done) => {
     pool = mysql.createPool({
-        host: 'eu-cdbr-west-02.cleardb.net',
-        user: 'b06a4de8e0c3a1',
-        password: 'c34eaf3d',
-        port: '3306',
-        database: 'heroku_999732582d6c0a3'
+        host: 'localhost',
+        user: 'root',
+        password: 'root',
+        port: '8889',
+        database: 'recetas'
     })
 
     done();
