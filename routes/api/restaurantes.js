@@ -25,7 +25,8 @@ router.post('/opinion', (req, res) => {
 
         opinion: req.body.opinion,
         user_id: req.body.user_id,
-        rest_id: req.body.rest_id
+        rest_id: req.body.rest_id,
+        user_foto: req.body.user_foto
 
     }, (err, result) => {
         res.json({success: 'opinion subida'})

@@ -8,9 +8,9 @@ exports.index = (done) => {
     })
 }
 
-exports.create = ({nombre, ciudad, edad, email, password, imagen}, done) =>{
-    let consulta = 'INSERT INTO usuarios (nombre, ciudad, edad, email, password, imagen) VALUES (?, ?, ?, ?, ?, ?)'
-    db.get().query(consulta, [nombre, ciudad, edad, email, password, imagen], (err, result)=>{
+exports.create = ({nombre, ciudad, edad, email, password}, done) =>{
+    let consulta = 'INSERT INTO usuarios (nombre, ciudad, edad, email, password) VALUES (?, ?, ?, ?, ?)'
+    db.get().query(consulta, [nombre, ciudad, edad, email, password], (err, result)=>{
         if (err) return done(err, null)
         done(null, result)
     })
@@ -43,6 +43,14 @@ exports.changePassword = ({password, email}, done) => {
     let update = 'UPDATE usuarios SET password=? WHERE email=?'
     db.get().query(update,[password, email], (err, result) => {
         if(err) return done(err, null)
+        done(null, result)
+    })
+}
+
+exports.changeFoto = ({imagen, id}, done) => {
+    let update = 'UPDATE usuarios SET imagen=? WHERE id=?'
+    db.get().query(update,[imagen, id], (err, result) => {
+        if(err) return done(err, mnull)
         done(null, result)
     })
 }
