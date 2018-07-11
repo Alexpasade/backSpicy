@@ -16,9 +16,9 @@ exports.getRestaurant = (id, done) =>{
     })
 }
 
-exports.create = ({opinion, user_id, rest_id}, done) =>{
-    let consulta = 'INSERT INTO opiniones (opinion, user_id, rest_id) VALUES (?,?,?)'
-    db.get().query(consulta, [opinion, user_id, rest_id], (err, result) => {
+exports.create = ({opinion, user_id, rest_id, user_foto}, done) =>{
+    let consulta = 'INSERT INTO opiniones (opinion, user_id, rest_id, user_foto) VALUES (?,?,?,?)'
+    db.get().query(consulta, [opinion, user_id, rest_id, user_foto], (err, result) => {
         if (err) return done (err, null)
         done(null, result)
     })

@@ -7,17 +7,13 @@ let multipart = require('connect-multiparty')
 let multipartMiddleware = multipart()
 
 router.post('/crearusuario', (req, res) => {
-    let random = Math.random().toString(36).substring(2, 7)
-    let content = fs.readFileSync(req.files.imagen.path)
-    fs.writeFileSync(`public/images/${random}.jpg`, content)
-
     modelUsuarios.create({
+
         nombre: req.body.nombre,
         ciudad: req.body.ciudad,
         edad: req.body.edad,
         email: req.body.email,
         password: sha256(req.body.password),
-        imagen: `http://localhost:3000/images/${random}.jpg`
 
     }, (err, result) => {
             res.json({success: 'registro completado'});
@@ -34,7 +30,7 @@ router.post('/login', (req, res) => {
                 res.json('falloPassword')
             }else{
                 res.json(result)
-              }
+            }
         }  
     })
 })
@@ -67,6 +63,19 @@ router.post('/changepassword', (req, res) => {
         password: sha256(req.body.password),
     }, (err, result) => {
         res.json({success: 'password cambiado'})
+    })
+})
+
+router.post('/changefoto', multipartMiddleware, (req, res) => {
+    let random = Math.random().toString(36).substring(2, 7)
+    let content = fs.readFileSync(req.files.imagen.path)
+    fs.writeFileSync(`public/images/${random}.jpg`, content)
+
+    modelUsuarios.changeFoto({
+        id: req.body.id,
+        imagen: `http://localhost:3000/images/${random}.jpg`
+    }, (err, result) =>{
+        res.json({success: 'imagen cambiada'})
     })
 })
 

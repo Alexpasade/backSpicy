@@ -1,21 +1,21 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require('cors');
-var {Wit} = require('node-wit');
-let fs = require('fs')
-let Promise = require('bluebird')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require('cors');
+const {Wit} = require('node-wit');
+const fs = require('fs')
+const Promise = require('bluebird')
 
 
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-let apiRouter = require('./routes/api');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const apiRouter = require('./routes/api');
 
 
-var app = express();
+const app = express();
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -63,10 +63,10 @@ app.post('/api/bot/receive', (req, res) => {
     client.message(req.body.mensaje, {})
     .then((data) => {
         if(data.entities.intent && data.entities.intent.length > 0){
-           fs.readFile(`./phrases/${data.entities.intent[0].value}`,(err, data) => {
-            let frases = data.toString().split('\n')
+          fs.readFile(`./phrases/${data.entities.intent[0].value}`,(err, data) => {
+            const frases = data.toString().split('\n')
             res.json(frases[Math.round(Math.random()*frases.length)])
-           })
+          })
         }else{
             res.json('No te entiendo.....')
         }
