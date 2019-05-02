@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router()
-let modelUsuarios = require('../../models/usuarios')
-var sha256 = require('js-sha256')
-let fs = require('fs')
-let multipart = require('connect-multiparty')
-let multipartMiddleware = multipart()
+const express = require('express');
+const router = express.Router()
+const modelUsuarios = require('../../models/usuarios')
+const sha256 = require('js-sha256')
+const fs = require('fs')
+const multipart = require('connect-multiparty')
+const multipartMiddleware = multipart()
 
 router.post('/crearusuario', (req, res) => {
     modelUsuarios.create({
@@ -77,7 +77,6 @@ router.post('/changefoto', multipartMiddleware, (req, res) => {
     }, (err, result) =>{
         res.json({success: 'imagen cambiada'})
     })
-})
-
+  })
 
 module.exports = router
